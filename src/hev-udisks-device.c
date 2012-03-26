@@ -123,7 +123,7 @@ void hev_udisks_device_partition_table_create(HevUDisksDevice *self,
 
 	g_dbus_proxy_call(G_DBUS_PROXY(self), "PartitionTableCreate",
 				g_variant_new("(sas)", type, NULL),
-				G_DBUS_CALL_FLAGS_NONE, -1,
+				G_DBUS_CALL_FLAGS_NONE, G_MAXINT,
 				cancellable, callback, user_data);
 }
 
@@ -183,7 +183,7 @@ void hev_udisks_device_partition_create(HevUDisksDevice *self,
 				g_variant_new("(ttssasassas)", offset, size,
 					type, label, flags_builder, NULL,
 					fstype, fsoptions_builder),
-				G_DBUS_CALL_FLAGS_NONE, -1,
+				G_DBUS_CALL_FLAGS_NONE, G_MAXINT,
 				cancellable, callback, user_data);
 	if(flags_builder)
 	  g_variant_builder_unref(flags_builder);
@@ -225,7 +225,7 @@ void hev_udisks_device_filesystem_mount(HevUDisksDevice *self,
 
 	g_dbus_proxy_call(G_DBUS_PROXY(self), "FilesystemMount",
 				g_variant_new("(sas)", type, NULL),
-				G_DBUS_CALL_FLAGS_NONE, -1,
+				G_DBUS_CALL_FLAGS_NONE, G_MAXINT,
 				cancellable, callback, user_data);
 }
 

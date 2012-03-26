@@ -118,7 +118,7 @@ void hev_udisks_enumerate_devices(HevUDisks *self, GCancellable *cancellable,
 	g_debug("%s:%d[%s]", __FILE__, __LINE__, __FUNCTION__);
 
 	g_dbus_proxy_call(G_DBUS_PROXY(self), "EnumerateDevices",
-				NULL, G_DBUS_CALL_FLAGS_NONE, 5000,
+				NULL, G_DBUS_CALL_FLAGS_NONE, G_MAXINT,
 				cancellable, callback, user_data);
 }
 
@@ -144,7 +144,7 @@ void hev_udisks_find_device_by_device_file(HevUDisks *self,
 
 	g_dbus_proxy_call(G_DBUS_PROXY(self), "FindDeviceByDeviceFile",
 				g_variant_new("(s)", file), G_DBUS_CALL_FLAGS_NONE,
-				5000, cancellable, callback, user_data);
+				G_MAXINT, cancellable, callback, user_data);
 }
 
 gchar * hev_udisks_find_device_by_device_file_finish(HevUDisks *self,
