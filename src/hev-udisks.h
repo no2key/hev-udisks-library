@@ -42,13 +42,14 @@ void hev_udisks_new(GDBusConnection *connection, GDBusProxyFlags flags,
 			GAsyncReadyCallback callback, gpointer user_data);
 GObject * hev_udisks_new_finish(GAsyncResult *res, GError **error);
 
-void hev_udisks_enumerate_devices(HevUDisks *self, GCancellable *cancellable,
-			GAsyncReadyCallback callback, gpointer user_data);
+void hev_udisks_enumerate_devices(HevUDisks *self, gint timeout_msec,
+			GCancellable *cancellable, GAsyncReadyCallback callback,
+			gpointer user_data);
 GVariant * hev_udisks_enumerate_devices_finish(HevUDisks *self,
 			GAsyncResult *res, GError **error);
 
 void hev_udisks_find_device_by_device_file(HevUDisks *self,
-			const gchar *file, GCancellable *cancellable,
+			const gchar *file, gint timeout_msec, GCancellable *cancellable,
 			GAsyncReadyCallback callback, gpointer user_data);
 gchar * hev_udisks_find_device_by_device_file_finish(HevUDisks *self,
 			GAsyncResult *res, GError **error);

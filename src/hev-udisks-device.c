@@ -113,7 +113,7 @@ GObject * hev_udisks_device_new_finish(GAsyncResult *res, GError **error)
 }
 
 void hev_udisks_device_partition_table_create(HevUDisksDevice *self,
-			const gchar *type, GCancellable *cancellable,
+			const gchar *type, gint timeout_msec, GCancellable *cancellable,
 			GAsyncReadyCallback callback, gpointer user_data)
 {
 	g_return_if_fail(HEV_IS_UDISKS_DEVICE(self));
@@ -123,7 +123,7 @@ void hev_udisks_device_partition_table_create(HevUDisksDevice *self,
 
 	g_dbus_proxy_call(G_DBUS_PROXY(self), "PartitionTableCreate",
 				g_variant_new("(sas)", type, NULL),
-				G_DBUS_CALL_FLAGS_NONE, G_MAXINT,
+				G_DBUS_CALL_FLAGS_NONE, timeout_msec,
 				cancellable, callback, user_data);
 }
 
@@ -152,8 +152,8 @@ void hev_udisks_device_partition_create(HevUDisksDevice *self,
 			guint64 offset, guint64 size, const gchar *type,
 			const gchar *label, const gchar **flags,
 			const gchar *fstype, const gchar **fsoptions,
-			GCancellable *cancellable, GAsyncReadyCallback callback,
-			gpointer user_data)
+			gint timeout_msec, GCancellable *cancellable,
+			GAsyncReadyCallback callback, gpointer user_data)
 {
 	GVariantBuilder *flags_builder = NULL;
 	GVariantBuilder *fsoptions_builder = NULL;
@@ -183,7 +183,7 @@ void hev_udisks_device_partition_create(HevUDisksDevice *self,
 				g_variant_new("(ttssasassas)", offset, size,
 					type, label, flags_builder, NULL,
 					fstype, fsoptions_builder),
-				G_DBUS_CALL_FLAGS_NONE, G_MAXINT,
+				G_DBUS_CALL_FLAGS_NONE, timeout_msec,
 				cancellable, callback, user_data);
 	if(flags_builder)
 	  g_variant_builder_unref(flags_builder);
@@ -217,7 +217,8 @@ gchar * hev_udisks_device_partition_create_finish(HevUDisksDevice *self,
 
 void hev_udisks_device_filesystem_mount(HevUDisksDevice *self,
 			const gchar *type, GCancellable *cancellable,
-			GAsyncReadyCallback callback, gpointer user_data)
+			gint timeout_msec, GAsyncReadyCallback callback,
+			gpointer user_data)
 {
 	g_return_if_fail(HEV_IS_UDISKS_DEVICE(self));
 
@@ -225,7 +226,7 @@ void hev_udisks_device_filesystem_mount(HevUDisksDevice *self,
 
 	g_dbus_proxy_call(G_DBUS_PROXY(self), "FilesystemMount",
 				g_variant_new("(sas)", type, NULL),
-				G_DBUS_CALL_FLAGS_NONE, G_MAXINT,
+				G_DBUS_CALL_FLAGS_NONE, timeout_msec,
 				cancellable, callback, user_data);
 }
 

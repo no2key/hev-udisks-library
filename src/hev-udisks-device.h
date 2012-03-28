@@ -44,7 +44,7 @@ void hev_udisks_device_new(GDBusConnection *connection, GDBusProxyFlags flags,
 GObject * hev_udisks_device_new_finish(GAsyncResult *res, GError **error);
 
 void hev_udisks_device_partition_table_create(HevUDisksDevice *self,
-			const gchar *type, GCancellable *cancellable,
+			const gchar *type, gint timeout_msec, GCancellable *cancellable,
 			GAsyncReadyCallback callback, gpointer user_data);
 gboolean hev_udisks_device_partition_table_create_finish(HevUDisksDevice *self,
 			GAsyncResult *res, GError **error);
@@ -53,14 +53,15 @@ void hev_udisks_device_partition_create(HevUDisksDevice *self,
 			guint64 offset, guint64 size, const gchar *type,
 			const gchar *label, const gchar **flags,
 			const gchar *fstype, const gchar **fsoptions,
-			GCancellable *cancellable, GAsyncReadyCallback callback,
-			gpointer user_data);
+			gint timeout_msec, GCancellable *cancellable,
+			GAsyncReadyCallback callback, gpointer user_data);
 gchar * hev_udisks_device_partition_create_finish(HevUDisksDevice *self,
 			GAsyncResult *res, GError **error);
 
 void hev_udisks_device_filesystem_mount(HevUDisksDevice *self,
 			const gchar *type, GCancellable *cancellable,
-			GAsyncReadyCallback callback, gpointer user_data);
+			gint timeout_msec, GAsyncReadyCallback callback,
+			gpointer user_data);
 gchar * hev_udisks_device_filesystem_mount_finish(HevUDisksDevice *self,
 			GAsyncResult *res, GError **error);
 

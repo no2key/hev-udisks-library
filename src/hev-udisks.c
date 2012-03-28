@@ -110,15 +110,16 @@ GObject * hev_udisks_new_finish(GAsyncResult *res, GError **error)
 	return object;
 }
 
-void hev_udisks_enumerate_devices(HevUDisks *self, GCancellable *cancellable,
-			GAsyncReadyCallback callback, gpointer user_data)
+void hev_udisks_enumerate_devices(HevUDisks *self, gint timeout_msec,
+			GCancellable *cancellable, GAsyncReadyCallback callback,
+			gpointer user_data)
 {
 	g_return_if_fail(HEV_IS_UDISKS(self));
 
 	g_debug("%s:%d[%s]", __FILE__, __LINE__, __FUNCTION__);
 
 	g_dbus_proxy_call(G_DBUS_PROXY(self), "EnumerateDevices",
-				NULL, G_DBUS_CALL_FLAGS_NONE, G_MAXINT,
+				NULL, G_DBUS_CALL_FLAGS_NONE, timeout_msec,
 				cancellable, callback, user_data);
 }
 
@@ -134,7 +135,7 @@ GVariant * hev_udisks_enumerate_devices_finish(HevUDisks *self,
 }
 
 void hev_udisks_find_device_by_device_file(HevUDisks *self,
-			const gchar *file, GCancellable *cancellable,
+			const gchar *file, gint timeout_msec, GCancellable *cancellable,
 			GAsyncReadyCallback callback, gpointer user_data)
 {
 	g_return_if_fail(HEV_IS_UDISKS(self));
@@ -144,7 +145,7 @@ void hev_udisks_find_device_by_device_file(HevUDisks *self,
 
 	g_dbus_proxy_call(G_DBUS_PROXY(self), "FindDeviceByDeviceFile",
 				g_variant_new("(s)", file), G_DBUS_CALL_FLAGS_NONE,
-				G_MAXINT, cancellable, callback, user_data);
+				timeout_msec, cancellable, callback, user_data);
 }
 
 gchar * hev_udisks_find_device_by_device_file_finish(HevUDisks *self,
